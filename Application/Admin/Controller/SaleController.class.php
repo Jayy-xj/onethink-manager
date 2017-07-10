@@ -33,6 +33,7 @@ class SaleController extends AdminController
                 }
                 return $data;
             }
+
             int_to_string($list);
             $this->assign('_list', $list);
             $this->meta_title = '租售信息';
@@ -55,7 +56,7 @@ class SaleController extends AdminController
                 $this->error($Sale->getError());
             }
         } else {
-            $this->assign('info',null);
+
             $this->meta_title = '新增租售信息';
             $this->display('edit');
         }

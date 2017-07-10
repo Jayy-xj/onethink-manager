@@ -1,0 +1,51 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>报修详情</h2>
+	</div>
+	<form action="" method="post" class="form-horizontal">
+		<div class="form-item">
+			<span class="item-label">报修编号：<span class="check-tips">{$sn}</span></span>
+		</div>
+		<div class="form-item">
+			<span class="item-label">状态：<span class="check-tips">{$status|getRepairStatus}</span></span>
+		</div>
+		<div class="form-item">
+			<span class="item-label">报修人：<span class="check-tips">{$name|default=''}</span></span>
+		</div>
+		<div class="form-item">
+			<span class="item-label">报修人电话：<span class="check-tips">{$tel|default=''}</span></span>
+		</div>
+		<div class="form-item">
+			<span class="item-label">标题：<span class="check-tips">{$title|default=''}</span></span>
+		</div>
+		<div class="form-item">
+			<label class="item-label">说明</label>
+			<div class="controls">
+				<label class="textarea input-large">
+					<textarea disabled name="remark">{$content|default=''}</textarea>
+				</label>
+			</div>
+		</div>
+		<notempty name="comment">
+			<div class="form-item">
+				<label class="item-label">评论</label>
+				<div class="controls">
+					<label class="textarea input-large">
+						<textarea disabled name="remark">{$comment|default=''}</textarea>
+					</label>
+				</div>
+			</div>
+		</notempty>
+	</form>
+</block>
+
+<block name="script">
+	<script type="text/javascript">
+		Think.setValue("type", {$info.type|default=0});
+		Think.setValue("group", {$info.group|default=0});
+		//导航高亮
+		highlight_subnav('{:U('Center/index')}');
+	</script>
+</block>

@@ -294,7 +294,13 @@ class DocumentModel extends Model{
         $res = D('Url')->update(array('url'=>$link));
         return $res['id'];
     }
-
+    //增加浏览数
+    public function addView($id)
+    {
+        if (is_numeric($id) && $id > 0) {
+            $this->where(['id' => $id])->setInc("view");
+        }
+    }
     /**
      * 保存为草稿
      * @return array 完整的数据， false 保存出错

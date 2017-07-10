@@ -1,0 +1,83 @@
+<extend name="Base/common" />
+
+<block name="style">
+    <link href="__CSS__/page.css" rel="stylesheet">
+    <style type="text/css">
+        .img-responsive{
+            min-height: 50px;
+        }
+    </style>
+</block>
+<block name="body">
+    <div class="container-fluid" id="content_list">
+        <empty name="repair_list">
+            <p class="text-center text-danger">没有报修记录</p>
+        <else />
+            <volist name="repair_list" id="vo">
+                <div class="row noticeList">
+                    <a href="{:U('Repair/detail',['id'=>$vo['id']])}">
+                        <div class="col-xs-3">
+                            <p class="title text-info ">报修人：{$vo.name}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p class="title">报修标题：{$vo.title}</p>
+
+                        </div>
+                        <div class="col-xs-push-3">
+                            <p class="title text-danger">
+                                {$vo.status_txt}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </volist>
+        </empty>
+    </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-info ajax-page">获取跟多~~~</button>
+    </div>
+</block>
+
+<block name="script">
+    <js href="__JS__/my.js" />
+    <script type="application/javascript">
+        var p = 1;
+        var url = '/wchat.php?s=/Repair/index';
+        var inner_url = '/wchat.php?s=/Repair/detail';
+        $(function(){
+            $('.ajax-page').click(function () {
+                if($(this).hasClass('ajax-page')){
+                    p = p+1;
+                    $.get(url+'/p/'+p,function(data){
+                        if(data['status']==1){
+                            list = data.data;
+                            html = '';
+                            for(index in list){
+                                html += '<div class="row noticeList">\
+                                 <a href="'+inner_url+'/id/'+list[index].id+'.html">\
+                                    <div class="col-xs-3">\
+                                        <p class="title text-info ">报修人：'+list[index].name+'</p>\
+                                    </div>\
+                                    <div class="col-xs-6">\
+                                        <p class="title">报修标题：'+list[index].title+'</p>\
+                                    </div>\
+                                    <div class="col-xs-push-3">\
+                                        <p class="title text-danger">\
+                                            '+list[index].status_txt+'\
+                                        </p>\
+                                    </div>\
+                                </a>\
+                            </div>\
+                            ';
+                            }
+                            $('#content_list').append(html);
+                        } else {
+                            $('.ajax-page').html("没有跟多数据了！！").removeClass('ajax-page')
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+</block>

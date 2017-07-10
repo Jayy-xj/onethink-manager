@@ -1,0 +1,76 @@
+<extend name="Base/common" />
+<block name="body">
+
+  <div class="container">
+
+    <form class="form-signin login-form" action="__SELF__" method="post">
+      <h2 class="form-signin-heading">登陆</h2>
+      <p>
+        <label for="inputUsername" class="sr-only">用户名</label>
+        <input type="text" name="username" id="inputUsername" class="form-control" placeholder="请填写用户名" errormsg="请填写1-16位用户名" nullmsg="请填写用户名" required autofocus>
+      </p>
+
+      <p>
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码为6-20位" required>
+      </p>
+
+      <p>
+        <label for="inputVerify" class="sr-only">验证码</label>
+        <input type="text" id="inputVerify" name="verify" class="form-control" placeholder="请填写5位验证码" required>
+      </p>
+      <div class="control-group">
+        <label class="control-label"></label>
+        <div class="controls">
+          <img class="verifyimg reloadverify" alt="点击切换" src="{:U('Wchat/verify')}" style="cursor:pointer;">
+        </div>
+        <div class="controls Validform_checktip text-warning"></div>
+      </div>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+    </form>
+	<p class="text-danger text-right"><a href="{:U('register')}">新用户注册</a></p>
+  </div>
+  <!-- /container -->
+</block>
+
+<block name="side"> </block>
+<block name="script">
+  <script type="text/javascript">
+    $(document)
+      .ajaxStart(function () {
+        $("button:submit").addClass("log-in").attr("disabled", true);
+      })
+      .ajaxStop(function () {
+        $("button:submit").removeClass("log-in").attr("disabled", false);
+      });
+
+
+    $("form").submit(function () {
+      var self = $(this);
+      $.post(self.attr("action"), self.serialize(), success, "json");
+      return false;
+
+      function success(data) {
+        if (data.status) {
+          window.location.href = data.url;
+        } else {
+          self.find(".Validform_checktip").text(data.info);
+          //刷新验证码
+          $(".reloadverify").click();
+        }
+      }
+    });
+
+    $(function () {
+      var verifyimg = $(".verifyimg").attr("src");
+      $(".reloadverify").click(function () {
+        if (verifyimg.indexOf('?') > 0) {
+          $(".verifyimg").attr("src", verifyimg + '&random=' + Math.random());
+        } else {
+          $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/, '') + '?' + Math.random());
+        }
+      });
+    });
+  </script>
+</block>

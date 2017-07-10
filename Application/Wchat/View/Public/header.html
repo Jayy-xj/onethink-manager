@@ -1,0 +1,20 @@
+<div class="container-fluid">
+	<div id="top-alert" class="fixed alert alert-error bg-danger" style="display: none;margin-top: 10%;">
+		<button class="close fixed" style="margin-top: 4px;">&times;</button>
+		<div class="alert-content">这是内容</div>
+	</div>
+</div>
+
+<block name="header">
+<!--导航部分-->
+<nav class="navbar navbar-default navbar-fixed-bottom">
+	<div class="container-fluid text-center">
+		<volist name="channel" id="vo">
+		<div class="col-xs-3">
+			<p class="navbar-text"><a href="{:U($vo['url'])}" class="navbar-link">{$vo.title}</a></p>
+		</div>
+		</volist>
+	</div>
+</nav>
+<!--导航结束-->
+</block>

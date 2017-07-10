@@ -1,0 +1,20 @@
+/* 列表分页 */
+.page a,
+.page span {
+    color: #686868;
+    border: 1px solid #CCCCCC;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+}
+.page a:hover
+{
+    background: #E1E1E1;
+}
+.page .current {
+    border-top: 3px solid #4BBD00;
+    background-color: #bec3d4;
+}

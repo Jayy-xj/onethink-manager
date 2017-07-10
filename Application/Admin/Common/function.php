@@ -440,3 +440,41 @@ function get_action_type($type, $all = false){
     }
     return $list[$type];
 }
+/**
+ * 报修状态
+ * @param $status
+ * @return mixed
+ */
+function getRepairStatus($status){
+    $config = [
+        -1=>'已删除',
+        0=>'未处理',
+        1=>'处理中',
+        2=>'处理完成'
+    ];
+    return $config[$status];
+}
+
+/**
+ * 申请状态
+ * 申请状态：-1 删除 | 0 待审核 | 1 审核通过 | 2 审核不通过 | 3 取消
+ * @param $status
+ */
+function applyStatus($status){
+    $config = [
+        -1=>'已删除',
+        0=>'待审核',
+        1=>'审核通过',
+        2=>'审核不通过',
+        3=>'取消'
+    ];
+    return $config[$status];
+}
+function typeWenti($status){
+    $config = [
+        0=>'单选',
+        1=>'多选',
+        2=>'文本',
+    ];
+    return $config[$status];
+}
